@@ -1,13 +1,13 @@
 #include <dt-bindings/zmk/input_transform.h>
 
-/* I2C bus shared with Nice!View + Trackpad */
+/* I2C bus shared with Nice!View + Cirque Trackpad */
 &pro_micro_i2c {
     status = "okay";
     clock-frequency = <400000>;
 
     glidepoint: glidepoint@2a {
         compatible = "cirque,pinnacle";
-        reg = <0x2a>;           // Try <0x2c> if no movement
+        reg = <0x2a>;               // Try <0x2c> later if needed
         status = "okay";
 
         sensitivity = "4x";
@@ -20,8 +20,9 @@
     glidepoint_listener {
         compatible = "zmk,input-listener";
         device = <&glidepoint>;
-        
-        /* Try uncommenting if direction is wrong */
-        /* input-processors = <&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_Y_INVERT)>; */
+
+        /* Uncomment and try these if the cursor moves in the wrong direction */
+        /* input-processors = <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>; */
+        /* input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT | INPUT_TRANSFORM_Y_INVERT)>; */
     };
 };
